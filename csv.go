@@ -41,6 +41,16 @@ func GetValues(data interface{}) string {
 			values = append(values, strconv.FormatInt(int64(t), 10))
 		case int64:
 			values = append(values, strconv.FormatInt(int64(t), 10))
+		case uint:
+			values = append(values, strconv.FormatUint(uint64(t), 10))
+		case uint8:
+			values = append(values, strconv.FormatUint(uint64(t), 10))
+		case uint16:
+			values = append(values, strconv.FormatUint(uint64(t), 10))
+		case uint32:
+			values = append(values, strconv.FormatUint(uint64(t), 10))
+		case uint64:
+			values = append(values, strconv.FormatUint(uint64(t), 10))
 		case float32:
 			values = append(values, fmt.Sprintf("%.10f", t))
 		case float64:

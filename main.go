@@ -36,7 +36,7 @@ func main() {
 	var pokemonData []interface{}
 	for _, i := range inventory.InventoryDelta.InventoryItems {
 		data := i.InventoryItemData
-		if &data.PokemonData != nil {
+		if data.PokemonData.ID != 0 {
 			pokemonData = append(pokemonData, data.PokemonData)
 		}
 	}
