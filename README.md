@@ -1,0 +1,1 @@
+Just playing around with the pokemon api and learning Golang
