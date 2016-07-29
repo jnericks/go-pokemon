@@ -4,10 +4,8 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
-	"path"
 
 	"github.com/golang/protobuf/proto"
 	protos "github.com/pkmngo-odi/pogo-protos"
@@ -16,29 +14,12 @@ import (
 )
 
 var (
-	pwd               string
 	p                 = flag.String("provider", "google", "auth provider ('google' or 'ptc')")
 	username          = flag.String("u", "", "username")
 	password          = flag.String("p", "", "password")
 	refresh           = flag.Bool("r", false, "refresh pokemon inventory from server")
 	inventoryDataFile = "inventory.json"
 )
-
-func init() {
-	var err error
-	pwd, err = os.Getwd()
-	if err != nil {
-		log.Fatal(err)
-		os.Exit(1)
-	}
-}
-
-func recreateFile(fileName string) {
-	fullpath := path.Join(pwd, fileName)
-	_ = os.Remove(fullpath)
-	file, _ := os.Create(fullpath)
-	defer file.Close()
-}
 
 func main() {
 	flag.Parse()
@@ -80,8 +61,12 @@ func refreshInventory() {
 		log.Panic(err)
 	}
 
-	fullpath := fmt.Sprintf("%s/%s", pwd, inventoryDataFile)
-	ioutil.WriteFile(fullpath, inv, 0644)
+	err = recreateFile(inventoryDataFile)
+	if err != nil {
+		log.Fatal(err)
+		os.Exit(1)
+	}
+	writeFile(inventoryDataFile, inv)
 }
 
 /*
