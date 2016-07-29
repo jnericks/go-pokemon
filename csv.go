@@ -1,4 +1,4 @@
-package main
+package gopokemon
 
 import (
 	"bufio"
@@ -10,11 +10,13 @@ import (
 	"github.com/fatih/structs"
 )
 
-func getHeader(data interface{}) string {
+// GetHeader will output a comma-separated string of the field names
+func GetHeader(data interface{}) string {
 	return strings.Join(structs.New(data).Names(), ",")
 }
 
-func getValues(data interface{}) string {
+// GetValues will output a comma-separated string of the values
+func GetValues(data interface{}) string {
 	var values []string
 
 	for _, v := range structs.New(data).Values() {
@@ -53,7 +55,18 @@ func getValues(data interface{}) string {
 	return strings.Join(values, ",")
 }
 
-func jsonToCsv(outputFile string, data interface{}) {
+// StructsToCsv will output the structs to a csv file in the /data folder of the pwd
+func StructsToCsv(outputFile string, data ...interface{}) error {
 	var _ *bufio.Reader
 	var _ *csv.Writer
+
+	if len(data) <= 0 {
+		return raiseError("No data to write to file.")
+	}
+
+	header := GetHeader(data[0])
+	WriteFile(outputFile, []byte(header))
+
+	// no error
+	return nil
 }

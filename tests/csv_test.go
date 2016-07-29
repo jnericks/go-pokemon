@@ -1,9 +1,10 @@
-package main
+package test
 
 import (
 	"fmt"
 	"testing"
 
+	. "github.com/jnericks/go-pokemon"
 	. "github.com/smartystreets/goconvey/convey"
 )
 
@@ -21,7 +22,7 @@ func TestGetHeader(t *testing.T) {
 
 	Convey("When passed a struct", t, func() {
 
-		headers := getHeader(ToTestCsv{})
+		headers := GetHeader(ToTestCsv{})
 
 		Convey("it should retrieve field names as comma-separated values", func() {
 
@@ -42,7 +43,7 @@ func TestGetValue(t *testing.T) {
 			AnBool:      true,
 			AnInterface: "not nil",
 		}
-		values := getValues(test)
+		values := GetValues(test)
 
 		Convey("it should retrieve values as comma-separated values", func() {
 
@@ -53,7 +54,7 @@ func TestGetValue(t *testing.T) {
 	Convey("When passed a default struct", t, func() {
 
 		test := ToTestCsv{}
-		values := getValues(test)
+		values := GetValues(test)
 
 		Convey("it should still have a comma for each field", func() {
 

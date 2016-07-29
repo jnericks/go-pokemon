@@ -1,22 +1,23 @@
-package main
+package test
 
 import (
 	"encoding/json"
 	"fmt"
 	"testing"
 
+	. "github.com/jnericks/go-pokemon"
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-func TestInventorySerialization(t *testing.T) {
+func TestDomainUnmarshalling(t *testing.T) {
 
 	Convey("When unmarshalling inventory", t, func() {
 
-		bytes, _ := readFile("inventory_test.json")
+		bytes, _ := ReadFile("inventory_test.json")
 
 		fmt.Printf("\n%s\n...\n", string(bytes[:64]))
 
-		var inventory inventory
+		var inventory Inventory
 		unmarshalError := json.Unmarshal(bytes, &inventory)
 
 		Convey("it should succeed", func() {

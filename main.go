@@ -1,4 +1,4 @@
-package main
+package gopokemon
 
 import (
 	"encoding/json"
@@ -55,7 +55,7 @@ func refreshInventory() {
 	inv, err = getInventory(session)
 	checkError(err, true)
 
-	err = writeFile(inventoryDataFile, inv)
+	err = WriteFile(inventoryDataFile, inv)
 	checkError(err, true)
 }
 
