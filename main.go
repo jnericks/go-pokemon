@@ -55,9 +55,6 @@ func refreshInventory() {
 	inv, err = getInventory(session)
 	checkError(err, true)
 
-	err = recreateFile(inventoryDataFile)
-	checkError(err, true)
-
 	err = writeFile(inventoryDataFile, inv)
 	checkError(err, true)
 }
