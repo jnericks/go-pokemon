@@ -68,19 +68,6 @@ func checkError(err error, exit bool) {
 	}
 }
 
-/*
-func formatToCsv() {
-	_, err := os.Stat(inventoryDataFile)
-	if os.IsNotExist(err) {
-		log.Fatalf("Inventory Data File does not exist.\n")
-		return
-	}
-
-	var bytes []byte
-	bytes, err = ioutil.ReadFile(inventoryDataFile)
-}
-*/
-
 func generateRequests() []*protos.Request {
 	return make([]*protos.Request, 0)
 }
