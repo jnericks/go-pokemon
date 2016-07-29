@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"flag"
-	"fmt"
 	"log"
 	"os"
 
@@ -37,10 +36,7 @@ func main() {
 func refreshInventory() {
 	// Initialize a new authentication provider to retrieve an access token
 	provider, err := auth.NewProvider(*p, *username, *password)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+	checkError(err, true)
 
 	// Set the coordinates from where you're connecting
 	location := &api.Location{
@@ -57,16 +53,22 @@ func refreshInventory() {
 	// Start querying the API
 	var inv []byte
 	inv, err = getInventory(session)
-	if err != nil {
-		log.Panic(err)
-	}
+	checkError(err, true)
 
 	err = recreateFile(inventoryDataFile)
+	checkError(err, true)
+
+	err = writeFile(inventoryDataFile, inv)
+	checkError(err, true)
+}
+
+func checkError(err error, exit bool) {
 	if err != nil {
-		log.Fatal(err)
-		os.Exit(1)
+		log.Panic(err)
+		if exit {
+			os.Exit(1)
+		}
 	}
-	writeFile(inventoryDataFile, inv)
 }
 
 /*
