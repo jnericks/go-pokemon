@@ -9,6 +9,13 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 )
 
+func TestReadFromOutputAndWriteToJson(t *testing.T) {
+	file := "inventory.json"
+	recreateFile(file)
+	bytes, _ := readFile("output.log")
+	writeFile(file, bytes)
+}
+
 func TestCreateWriteReadFile(t *testing.T) {
 	file := "file_test_TestCreateWriteReadFile.txt"
 	fullpath := path.Join(pwd, file)

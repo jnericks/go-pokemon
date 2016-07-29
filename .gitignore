@@ -1,7 +1,6 @@
 # custom
 .vscode/
 *.txt
-*.json
 *.log
 debug
 

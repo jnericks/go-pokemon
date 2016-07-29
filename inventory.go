@@ -1,8 +1,14 @@
 package main
 
+// Inventory ...
+type inventory struct {
+	Success        bool           `json:"success"`
+	InventoryDelta inventoryDelta `json:"inventory_delta"`
+}
+
 type inventoryDelta struct {
-	newTimestampMS int64
-	inventoryItems []inventoryItem
+	NewTimestampMS int64           `json:"new_timestamp_ms"`
+	InventoryItems []inventoryItem `json:"inventory_items"`
 }
 
 type inventoryItem struct {
