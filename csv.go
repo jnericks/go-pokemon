@@ -1,4 +1,4 @@
-package gopokemon
+package main
 
 import (
 	"bufio"
@@ -61,7 +61,7 @@ func StructsToCsv(outputFile string, data ...interface{}) error {
 	var _ *csv.Writer
 
 	if len(data) <= 0 {
-		return raiseError("No data to write to file.")
+		return RaiseError("No data to write to file.")
 	}
 
 	header := GetHeader(data[0])

@@ -1,4 +1,4 @@
-package gopokemon
+package main
 
 import (
 	"fmt"

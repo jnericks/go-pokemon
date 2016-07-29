@@ -1,4 +1,4 @@
-package gopokemon
+package main
 
 // Inventory ...
 type Inventory struct {

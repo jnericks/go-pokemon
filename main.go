@@ -1,4 +1,4 @@
-package gopokemon
+package main
 
 import (
 	"encoding/json"
@@ -29,11 +29,29 @@ func main() {
 			return
 		}
 
-		refreshInventory()
+		refreshInventory(inventoryDataFile)
 	}
+
+	inventory := getInventoryFromFile(inventoryDataFile)
+	var pokemonData []interface{}
+	for _, i := range inventory.InventoryDelta.InventoryItems {
+		data := i.InventoryItemData
+		if &data.PokemonData != nil {
+			pokemonData = append(pokemonData, data.PokemonData)
+		}
+	}
+
+	StructsToCsv("pokemondata.csv", pokemonData...)
 }
 
-func refreshInventory() {
+func getInventoryFromFile(file string) (inventory Inventory) {
+	bytes, err := ReadFile(inventoryDataFile)
+	checkError(err, true)
+	json.Unmarshal(bytes, &inventory)
+	return
+}
+
+func refreshInventory(file string) {
 	// Initialize a new authentication provider to retrieve an access token
 	provider, err := auth.NewProvider(*p, *username, *password)
 	checkError(err, true)
@@ -55,7 +73,7 @@ func refreshInventory() {
 	inv, err = getInventory(session)
 	checkError(err, true)
 
-	err = WriteFile(inventoryDataFile, inv)
+	err = WriteFile(file, inv)
 	checkError(err, true)
 }
 
