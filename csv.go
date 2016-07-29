@@ -67,6 +67,10 @@ func StructsToCsv(outputFile string, data ...interface{}) error {
 	header := GetHeader(data[0])
 	WriteFile(outputFile, []byte(header))
 
+	for _, s := range data {
+		AppendFile(outputFile, GetValues(s))
+	}
+
 	// no error
 	return nil
 }
